@@ -1,0 +1,21 @@
+{
+  "name": "refactoringEX",
+  "version": "1.0.0",
+  "author": "eamon3481",
+  "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "start": "node index.js",
+    "start:week": "sh -c 'node week${0}'",
+    "test:week": "sh -c 'jest week${0}'"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "babel-jest": "^27.4.5",
+    "jest": "^27.4.5",
+    "prettier": "^2.5.1"
+  }
+}
