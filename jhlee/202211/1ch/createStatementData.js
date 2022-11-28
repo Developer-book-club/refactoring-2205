@@ -25,7 +25,11 @@ export function createStatementData(invoice, plays) {
 
   function enrichPerformance(aPerformance) {
     const result = Object.assign({}, aPerformance);
-    result.play = playFor(result);
+    const calculator = new PerformanceCalculator(
+      aPerformance,
+      playFor(aPerformance),
+    );
+    result.play = calculator.play;
     result.amount = amountFor(result);
     result.volumeCredits = volumeCreditsFor(result);
     return result;
@@ -56,5 +60,12 @@ export function createStatementData(invoice, plays) {
         throw new Error(`알 수 없는 장르: ${aPerformance.play.type}`);
     }
     return result;
+  }
+}
+
+class PerformanceCalculator {
+  constructor(aPerformance, aPlay) {
+    this.performances = aPerformance;
+    this.play = aPlay;
   }
 }
