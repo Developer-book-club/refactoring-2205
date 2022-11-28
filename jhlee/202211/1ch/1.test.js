@@ -1,6 +1,6 @@
 import plays from './plays.json' assert { type: 'json' };
 import invoices from './invoices.json' assert { type: 'json' };
-import { statement } from './1-2.js';
+import { statement } from './1-3.js';
 
 // console.log(plays);
 // console.log(invoices);
