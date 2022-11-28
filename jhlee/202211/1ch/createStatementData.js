@@ -15,11 +15,12 @@ export function createStatementData(invoice, plays) {
   }
 
   function enrichPerformance(aPerformance) {
-    const result = Object.assign({}, aPerformance);
     const calculator = createPerformanceCalculator(
       aPerformance,
       playFor(aPerformance),
     );
+
+    const result = Object.assign({}, aPerformance);
     result.play = calculator.play;
     result.amount = calculator.amount;
     result.volumeCredits = calculator.volumeCredits;
@@ -30,6 +31,7 @@ export function createStatementData(invoice, plays) {
     return plays[aPerformance.playID];
   }
 }
+
 function createPerformanceCalculator(aPerformance, aPlay) {
   switch (aPlay.type) {
     case 'tragedy':
@@ -40,6 +42,7 @@ function createPerformanceCalculator(aPerformance, aPlay) {
       throw new Error(`알 수 없는 장르: ${aPlay.type}`);
   }
 }
+
 class PerformanceCalculator {
   constructor(aPerformance, aPlay) {
     this.performances = aPerformance;
@@ -54,7 +57,6 @@ class PerformanceCalculator {
     return Math.max(this.performances.audience - 30, 0);
   }
 }
-
 class TragedyCalculator extends PerformanceCalculator {
   get amount() {
     let result = 40000;
