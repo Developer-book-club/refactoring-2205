@@ -3,7 +3,7 @@ import invoices from './invoices.json' assert { type: 'json' };
 import { statement } from './1-3.js';
 import { createStatementData } from './createStatementData';
 
-const s = `청구 내역 (고객명: BigCo)
+const statementTestResult = `청구 내역 (고객명: BigCo)
  Hamlet: $650.00 (55석)
  As You Like It: $580.00 (35석)
  Othello: $500.00 (40석)
@@ -11,10 +11,10 @@ const s = `청구 내역 (고객명: BigCo)
 적립 포인트: 47점
 `;
 test('test statement', () => {
-  expect(statement(invoices[0], plays)).toBe(s);
+  expect(statement(invoices[0], plays)).toBe(statementTestResult);
 });
 
-const d = JSON.stringify({
+const createStatementTestResult = JSON.stringify({
   customer: 'BigCo',
   performances: [
     {
@@ -52,5 +52,7 @@ const d = JSON.stringify({
   totalAmount: 173000,
 });
 test('test creatStatementData', () => {
-  expect(JSON.stringify(createStatementData(invoices[0], plays))).toBe(d);
+  expect(JSON.stringify(createStatementData(invoices[0], plays))).toBe(
+    createStatementTestResult,
+  );
 });
