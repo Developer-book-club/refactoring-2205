@@ -6,6 +6,31 @@ export function createStatementData(invoice, plays) {
   statementData.totalAmount = totalAmount(statementData);
   return statementData;
 
+  function totalAmount(data) {
+    return data.performances.reduce((total, p) => total + p.amount, 0);
+  }
+
+  function totalVolumCredits(data) {
+    return data.performances.reduce((total, p) => total + p.volumeCredits, 0);
+  }
+
+  function volumeCreditsFor(aPerformance) {
+    let result = 0;
+    result += Math.max(aPerformance.audience - 30, 0);
+    if ('comedy' === aPerformance.play.type)
+      result += Math.floor(aPerformance.audience / 5);
+
+    return result;
+  }
+
+  function enrichPerformance(aPerformance) {
+    const result = Object.assign({}, aPerformance);
+    result.play = playFor(result);
+    result.amount = amountFor(result);
+    result.volumeCredits = volumeCreditsFor(result);
+    return result;
+  }
+
   function playFor(aPerformance) {
     return plays[aPerformance.playID];
   }
@@ -30,31 +55,6 @@ export function createStatementData(invoice, plays) {
       default:
         throw new Error(`알 수 없는 장르: ${aPerformance.play.type}`);
     }
-    return result;
-  }
-
-  function totalAmount(data) {
-    return data.performances.reduce((total, p) => total + p.amount, 0);
-  }
-
-  function totalVolumCredits(data) {
-    return data.performances.reduce((total, p) => total + p.volumeCredits, 0);
-  }
-
-  function volumeCreditsFor(aPerformance) {
-    let result = 0;
-    result += Math.max(aPerformance.audience - 30, 0);
-    if ('comedy' === aPerformance.play.type)
-      result += Math.floor(aPerformance.audience / 5);
-
-    return result;
-  }
-
-  function enrichPerformance(aPerformance) {
-    const result = Object.assign({}, aPerformance);
-    result.play = playFor(result);
-    result.amount = amountFor(result);
-    result.volumeCredits = volumeCreditsFor(result);
     return result;
   }
 }
