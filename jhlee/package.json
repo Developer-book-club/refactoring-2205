@@ -17,6 +17,7 @@
     "prettier": "^2.6.2"
   },
   "dependencies": {
+    "@babel/plugin-syntax-import-assertions": "^7.20.0",
     "jest": "^28.1.0"
   }
 }
